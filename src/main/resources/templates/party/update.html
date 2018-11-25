@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Update</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-$END$
+<form action="/addParty" method="post">
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Return to main site.</button>
+</form>
+
+<div class="container">
+    <form action="/updateEntity" method="post" class="form-signin">
+        <h3 class="form-signin-heading">Party Update</h3>
+        <br/>
+        <input type="number" name="id" th:value="${party.id}" readonly class="form-control">
+        <input type="text" name="name" required="true" th:value="${party.name}"
+               class="form-control"/> <br/>
+
+        <button class="btn btn-lg btn-primary btn-block" name="Save" value="Save" type="submit"
+                th:text="Save"></button>
+    </form>
+</div>
+
+
 </body>
 </html>

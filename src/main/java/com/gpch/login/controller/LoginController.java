@@ -2,7 +2,9 @@ package com.gpch.login.controller;
 
 import javax.validation.Valid;
 
+import com.gpch.login.model.Party;
 import com.gpch.login.model.User;
+import com.gpch.login.repository.PartyRepository;
 import com.gpch.login.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,11 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class LoginController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PartyRepository partyRepository;
 
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
@@ -63,7 +71,14 @@ public class LoginController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+
+        List<Party> myParties = new ArrayList<>();
+        for(Party party : partyRepository.findAll()){
+            if(party.getOrganizerName().equals(user.getName())){
+                myParties.add(party);
+            }
+        }
+        modelAndView.addObject("myParties",myParties);
         modelAndView.setViewName("admin/home");
         return modelAndView;
     }

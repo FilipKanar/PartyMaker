@@ -25,10 +25,34 @@
                 <span th:utext="${userName}"></span>
             </div>
             <div class="panel-body">
-                <img th:src="@{/images/beer.jpg}" class="img-responsive center-block" width="400" height="400"
-                     alt="Beer"/>
+                <form action="/partySettings" method="post">
+                    <button class="btn btn-primary btn-lg" name="addparty" type="submit"> New Party</button>
+                </form>
             </div>
-            <p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
+            <div th:if="${myParties.size()>0}">
+                <h1>My Parties:</h1>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Change</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="party : ${myParties}">
+                        <th scope="row" th:text="${party.getName()}"></th>
+                        <th>
+                            <form action="/update" method="post">
+                                <button name="partyId" th:value="${party.getId()}" type="submit" class="btn btn-info">
+                                    Settings
+                                </button>
+                            </form>
+                        </th>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
         </div>
     </div>
 
