@@ -20,7 +20,7 @@
         <input type="number" name="id" th:value="${party.id}" readonly class="form-control"><br/>
         <input type="text" name="name" required="true" th:value="${party.name}" class="form-control"/> <br/>
         <input type="date" name="date" class="form-control" required="true" th:value="${party.date}"/> <br/>
-        <textarea cols="30" rows="13" name="description" th:value="${party.description}" class="text-area"></textarea><br/>
+        <textarea cols="30" rows="13" name="description" th:text="${party.description}" class="text-area"></textarea><br/>
         <button class="btn btn-lg btn-primary btn-block" name="Save" value="Save" type="submit"
                 th:text="Save"></button>
     </form>

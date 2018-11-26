@@ -43,8 +43,8 @@
                     <tbody>
                     <tr th:each="party : ${myParties}">
                         <th scope="row" th:text="${party.name}"></th>
-                        <th scope="row" th:value="${party.date}"></th>
-                        <th scope="row" th:value="${party.description}"></th>
+                        <th scope="row" th:text="${party.date}"></th>
+                        <th scope="row" th:text="${party.description}"></th>
                         <th>
                             <form action="/update" method="post">
                                 <input type="number" name="id" th:value="${party.id}" hidden>
@@ -75,8 +75,8 @@
                     <tr th:each="party : ${invitedToParties}">
                         <th scope="row" th:text="${party.name}"></th>
                         <th scope="row" th:text="${party.organizerName}"></th>
-                        <th scope="row" th:value="${party.date}"></th>
-                        <th scope="row" th:value="${party.description}"></th>
+                        <th scope="row" th:text="${party.date}"></th>
+                        <th scope="row" th:text="${party.description}"></th>
                         <th>
                             <form action="/giftList" method="post">
                                 <input type="number" name="partyId" th:value="${party.id}" hidden>

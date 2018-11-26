@@ -28,7 +28,7 @@
                 <tbody>
                 <tr th:each="gift : ${gifts}">
                     <th scope="row" th:text="${gift.name}"></th>
-                    <th scope="row" th:value="${gift.price}"></th>
+                    <th scope="row" th:text="${gift.price}"></th>
                     <th>
                         <form action="/chooseGift" method="post">
                             <button name="id" th:value="${gift.id}" type="submit" class="btn btn-info">
