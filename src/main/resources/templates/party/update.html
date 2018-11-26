@@ -24,6 +24,16 @@
         <button class="btn btn-lg btn-primary btn-block" name="Save" value="Save" type="submit"
                 th:text="Save"></button>
     </form>
+    <br/>
+    <form action="/addGuest" method="post" class="form-inline">
+        <input name="id" th:value="${party.id}" type="hidden">
+        <h4 class="form-signin-heading">Invite guests:</h4>
+        <div class="form-group">
+            <label for="email">Guest Email</label>
+            <input type="email" name="email" placeholder="Email" class="form-control" id="email">
+        </div>
+        <button type="submit" class="btn btn-success">Invite</button>
+    </form>
 </div>
 
 

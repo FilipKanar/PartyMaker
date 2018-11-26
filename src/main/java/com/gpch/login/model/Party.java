@@ -24,6 +24,8 @@ public class Party {
 
     private String organizerName;
 
+    @OneToMany
+    private List<User> guestList = new ArrayList<>();
 
 
     public Party(String name) {
@@ -31,5 +33,9 @@ public class Party {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         this.organizerName=authentication.getName();
+    }
+
+    public void addGuest(User user){
+        guestList.add(user);
     }
 }

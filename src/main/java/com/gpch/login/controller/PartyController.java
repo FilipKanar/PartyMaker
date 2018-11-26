@@ -2,7 +2,10 @@ package com.gpch.login.controller;
 
 
 import com.gpch.login.model.Party;
+import com.gpch.login.model.User;
 import com.gpch.login.repository.PartyRepository;
+import com.gpch.login.repository.UserRepository;
+import com.gpch.login.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,9 @@ public class PartyController {
 
     @Autowired
     PartyRepository partyRepository;
+
+    @Autowired
+    UserService userService;
 
     @PostMapping("/addParty")
     public String addParty(@RequestParam (value = "name",required = false) String name,
@@ -33,14 +40,24 @@ public class PartyController {
     @GetMapping("/addParty")
     public String addPartyGet(ModelMap modelMap){
         List<Party> myParties = new ArrayList<>();
+        List<Party> iAmInvitedParties = new ArrayList<>();
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         for (Party party : partyRepository.findAll()) {
             if (party.getOrganizerName().equals(authentication.getName())) {
                 myParties.add(party);
             }
+            for(User tempUser : party.getGuestList()){
+                if (tempUser.getEmail().equals(authentication.getName())){
+                    iAmInvitedParties.add(party);
+                    System.out.println("------------------------" + party.getName());
+                }
+
+            }
         }
         modelMap.addAttribute("myParties", myParties);
+        modelMap.addAttribute("invitedToParties",iAmInvitedParties);
         return "admin/home";
     }
 
@@ -68,5 +85,21 @@ public class PartyController {
         return "redirect:/addParty";
     }
 
+
+    @PostMapping("/addGuest")
+    public String addGuest(@RequestParam("email") String email,
+                           @RequestParam("id") int id,
+                           RedirectAttributes redirectAttributes){
+        if (userService.findUserByEmail(email)!=null){
+            System.out.println("xD");
+            Party party = partyRepository.findById(id);
+            party.addGuest(userService.findUserByEmail(email));
+            partyRepository.save(party);
+            redirectAttributes.addFlashAttribute("message", "Guest added.");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Guest NOT added.");
+        }
+        return "redirect:/addParty";
+    }
 
 }

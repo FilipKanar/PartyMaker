@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -73,15 +74,24 @@ public class LoginController {
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
 
         List<Party> myParties = new ArrayList<>();
-        for(Party party : partyRepository.findAll()){
-            if(party.getOrganizerName().equals(user.getName())){
+        List<Party> iAmInvitedParties = new ArrayList<>();
+        for (Party party : partyRepository.findAll()) {
+            if (party.getOrganizerName().equals(auth.getName())) {
                 myParties.add(party);
             }
+            for(User tempUser : party.getGuestList()){
+                if (tempUser.getEmail().equals(auth.getName())){
+                    System.out.println("------------------------" + party.getName());
+                    iAmInvitedParties.add(party);
+                }
+            }
         }
+        modelAndView.addObject("invitedToParties",iAmInvitedParties);
         modelAndView.addObject("myParties",myParties);
         modelAndView.setViewName("admin/home");
         return modelAndView;
     }
+
 
 
 }
