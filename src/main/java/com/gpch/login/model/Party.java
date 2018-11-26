@@ -24,7 +24,7 @@ public class Party {
 
     private String organizerName;
 
-    @OneToMany
+    @ManyToMany
     private List<User> guestList = new ArrayList<>();
 
 

@@ -51,7 +51,6 @@ public class PartyController {
             for(User tempUser : party.getGuestList()){
                 if (tempUser.getEmail().equals(authentication.getName())){
                     iAmInvitedParties.add(party);
-                    System.out.println("------------------------" + party.getName());
                 }
 
             }

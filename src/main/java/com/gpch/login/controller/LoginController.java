@@ -81,7 +81,6 @@ public class LoginController {
             }
             for(User tempUser : party.getGuestList()){
                 if (tempUser.getEmail().equals(auth.getName())){
-                    System.out.println("------------------------" + party.getName());
                     iAmInvitedParties.add(party);
                 }
             }
