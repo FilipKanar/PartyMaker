@@ -54,4 +54,7 @@ public class User {
     @ManyToMany
     private List<Party> party = new ArrayList<>();
 
+    @OneToMany
+    private List<Gift> gifts = new ArrayList<>();
+
 }

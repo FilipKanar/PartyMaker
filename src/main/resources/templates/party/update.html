@@ -17,15 +17,15 @@
     <form action="/updateEntity" method="post" class="form-signin">
         <h3 class="form-signin-heading">Party Update</h3>
         <br/>
-        <input type="number" name="id" th:value="${party.id}" readonly class="form-control">
-        <input type="text" name="name" required="true" th:value="${party.name}"
-               class="form-control"/> <br/>
-
+        <input type="number" name="id" th:value="${party.id}" readonly class="form-control"><br/>
+        <input type="text" name="name" required="true" th:value="${party.name}" class="form-control"/> <br/>
+        <input type="date" name="date" class="form-control" required="true" th:value="${party.date}"/> <br/>
+        <textarea cols="30" rows="13" name="description" th:value="${party.description}" class="text-area"></textarea><br/>
         <button class="btn btn-lg btn-primary btn-block" name="Save" value="Save" type="submit"
                 th:text="Save"></button>
     </form>
     <br/>
-    <form action="/addGuest" method="post" class="form-inline">
+    <form action="/addGuest" method="post" class="form-inline text-center" >
         <input name="id" th:value="${party.id}" type="hidden">
         <h4 class="form-signin-heading">Invite guests:</h4>
         <div class="form-group">
@@ -33,6 +33,11 @@
             <input type="email" name="email" placeholder="Email" class="form-control" id="email">
         </div>
         <button type="submit" class="btn btn-success">Invite</button>
+    </form>
+    <br/>
+    <form  action="/gifts" method="get" class="form-inline text-center">
+        <input type="number" name="id" th:value="${party.id}" readonly/>
+        <button class="btn btn-primary btn-lg" type="submit">GIFTS</button>
     </form>
 </div>
 

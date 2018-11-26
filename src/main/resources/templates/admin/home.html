@@ -35,12 +35,16 @@
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Description</th>
                         <th scope="col">Change</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="party : ${myParties}">
-                        <th scope="row" th:text="${party.getName()}"></th>
+                        <th scope="row" th:text="${party.name}"></th>
+                        <th scope="row" th:value="${party.date}"></th>
+                        <th scope="row" th:value="${party.description}"></th>
                         <th>
                             <form action="/update" method="post">
                                 <button name="partyId" th:value="${party.getId()}" type="submit" class="btn btn-info">
@@ -60,11 +64,17 @@
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
+                        <th scope="col">Organizer</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Description</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="party : ${invitedToParties}">
-                        <th scope="row" th:text="${party.getName()}"></th>
+                        <th scope="row" th:text="${party.name}"></th>
+                        <th scope="row" th:text="${party.organizerName}"></th>
+                        <th scope="row" th:value="${party.date}"></th>
+                        <th scope="row" th:value="${party.description}"></th>
                     </tr>
                     </tbody>
 
