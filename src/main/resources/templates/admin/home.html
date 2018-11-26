@@ -47,7 +47,8 @@
                         <th scope="row" th:value="${party.description}"></th>
                         <th>
                             <form action="/update" method="post">
-                                <button name="partyId" th:value="${party.getId()}" type="submit" class="btn btn-info">
+                                <input type="number" name="id" th:value="${party.id}" hidden>
+                                <button name="partyId" type="submit" class="btn btn-info">
                                     Settings
                                 </button>
                             </form>
@@ -67,6 +68,7 @@
                         <th scope="col">Organizer</th>
                         <th scope="col">Date</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Gifts</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -75,6 +77,14 @@
                         <th scope="row" th:text="${party.organizerName}"></th>
                         <th scope="row" th:value="${party.date}"></th>
                         <th scope="row" th:value="${party.description}"></th>
+                        <th>
+                            <form action="/giftList" method="post">
+                                <input type="number" name="partyId" th:value="${party.id}" hidden>
+                                <button name="giftList" th:value="${party.getId()}" type="submit" class="btn btn-info">
+                                    Choose your Gift
+                                </button>
+                            </form>
+                        </th>
                     </tr>
                     </tbody>
 

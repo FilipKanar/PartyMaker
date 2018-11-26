@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Gifts List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<form action="/addParty" method="post">
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Return to main site.</button>
+</form>
+
+<div class="container">
+        <h3 class="form-signin-heading">Choose a gift to buy:</h3>
+        <br/>
+        <div th:if="${gifts.size()>0}">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Choose</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="gift : ${gifts}">
+                    <th scope="row" th:text="${gift.name}"></th>
+                    <th scope="row" th:value="${gift.price}"></th>
+                    <th>
+                        <form action="/chooseGift" method="post">
+                            <button name="id" th:value="${gift.id}" type="submit" class="btn btn-info">
+                                Choose
+                            </button>
+                        </form>
+                    </th>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+</div>
+
+</body>
+</html>

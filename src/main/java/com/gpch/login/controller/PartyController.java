@@ -77,7 +77,7 @@ public class PartyController {
     }
 
     @PostMapping("/update")
-    public String updateParty(@RequestParam("partyId") int partyID,
+    public String updateParty(@RequestParam("id") int partyID,
                               ModelMap modelMap) {
         modelMap.addAttribute("party", partyRepository.findById(partyID));
         return "party/update";
@@ -124,6 +124,25 @@ public class PartyController {
                           @RequestParam("price") Double price,
                           @RequestParam("id") int id){
         Gift gift = new Gift(name,price,partyRepository.findById(id));
+        giftRepository.save(gift);
+        return "redirect:/addParty";
+    }
+
+
+    @PostMapping("/giftList")
+    public String giftList(@RequestParam("partyId") int id,
+                           ModelMap modelMap){
+        modelMap.addAttribute("gifts",giftRepository.findAllByParty(partyRepository.findById(id)));
+        return "party/giftslist";
+    }
+
+    @PostMapping("/chooseGift")
+    public String chooseGift(@RequestParam ("id") int id){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Gift gift = giftRepository.findById(id);
+        gift.setUser(userService.findUserByEmail(authentication.getName()));
         giftRepository.save(gift);
         return "redirect:/addParty";
     }
